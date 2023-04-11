@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:41:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/11 11:36:24 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:40:23 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,15 +41,45 @@
 // 	return (0);
 // }
 
+int	deal_mouse(int key, t_params pa)
+{
+	printf("mousekey = %d\n", key);
+	if (key == 4)
+	{
+		printf("zoooooooooooom\n");
+		mlx_mouse_get_pos(pa.mlx_ptr, pa.win_ptr, &pa.x, &pa.y);
+		// printf("x = %p, y = %p\n", x, y);
+	}
+	return (0);
+}
+
+int	deal_key(int key, t_params *pa)
+{
+	printf("keyboard = %d\n", key);
+	if (key == 65307)
+	{
+		mlx_destroy_window(pa->mlx_ptr, pa->win_ptr);
+		return (1);
+	}
+	return (0);
+}
+
 int	main()
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	t_params *pa;
 
-	mlx_ptr = mlx_init();
+	pa = (t_params *)malloc(sizeof(t_params));
+	if (!pa)
+		return (1);
+	pa->x = 800;
+	pa->y = 600;
+	pa->mlx_ptr = mlx_init();
 	// if (mlx_ptr == NULL)
-	win_ptr = mlx_new_window(mlx_ptr, 800, 600, "FRACTOL");
+	pa->win_ptr = mlx_new_window(pa->mlx_ptr, pa->x, pa->y, "FRACTOL");
 	// test(mlx_ptr, win_ptr);
-	mandelbrot(mlx_ptr, win_ptr);
-	mlx_loop(mlx_ptr);
+	mandelbrot(pa->mlx_ptr, pa->win_ptr);
+	mlx_key_hook(pa->win_ptr, deal_key, pa);
+	mlx_mouse_show(pa->mlx_ptr, pa->win_ptr);
+	mlx_mouse_hook(pa->win_ptr, deal_mouse, pa);
+	mlx_loop(pa->mlx_ptr);
 }

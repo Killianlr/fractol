@@ -6,38 +6,40 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:47:07 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/11 11:42:49 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:52:39 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	set_params_mdblt(t_a *mdblt)
+void	set_params_mdblt(t_params *pa, t_a *mdblt)
 {
 	mdblt->x1 = -2.1;
 	mdblt->x2 = 0.6;
 	mdblt->y1 = -1.2;
 	mdblt->y2 = 1.2;
-	mdblt->image_x = 800;
-	mdblt->image_y = 600;
+	mdblt->image_x = pa->resx;
+	mdblt->image_y = pa->resy;
 	mdblt->zoom_x = mdblt->image_x/(mdblt->x2 - mdblt->x1);
 	mdblt->zoom_y = mdblt->image_y/(mdblt->y2 - mdblt->y1);
 	mdblt->i_max = 50;
-	mdblt->x = 0;
-	mdblt->y = 0;
+	mdblt->x = pa->x;
+	mdblt->y = pa->y;
 }
 
-int	mandelbrot(void *mlx_ptr, void *win_ptr)
+int	mandelbrot(t_params *pa)
 {
 	t_a	*mdblt;
 	double tmp;
 
+	printf("test\n");
 	mdblt = (t_a *)malloc(sizeof(t_a));
 	tmp = 0;
-	set_params_mdblt(mdblt);
+	set_params_mdblt(pa, mdblt);
+	printf("x = %f, y = %f\n", mdblt->x, mdblt->y);
 	while (mdblt->x < mdblt->image_x)
 	{
-		mdblt->y = 0;
+		mdblt->y = pa->y;
 		mdblt->x++;
 		while (mdblt->y < mdblt->image_y)
 		{
@@ -56,10 +58,10 @@ int	mandelbrot(void *mlx_ptr, void *win_ptr)
 			}
 			if (i == mdblt->i_max)
 			{	
-				mlx_pixel_put(mlx_ptr, win_ptr, mdblt->x, mdblt->y, 65535);
+				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, mdblt->x, mdblt->y, 65535);
 			}
 			else
-				mlx_pixel_put(mlx_ptr, win_ptr, mdblt->x, mdblt->y, 16777215);
+				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, mdblt->x, mdblt->y, 0);
 		}
 	}
 	return (0);	

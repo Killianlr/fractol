@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/11 15:35:28 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:28:47 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@
 #include <stdlib.h>
 #include <math.h>
 #include "libft/libft.h"
+#include "libft/ft_printf/ft_printf.h"
 
 typedef struct params_win
 {
+	int		type;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		x;
-	int		y;
-	int		key;
+	double		x;
+	double		resx;
+	double		y;
+	double		resy;
 }t_params;
 
 
@@ -45,6 +48,11 @@ typedef struct mdlbt
 	double	y;
 }t_a;
 
-int	mandelbrot(void *mlx_ptr, void *win_ptr);
+int		mandelbrot(t_params *pa);
+void	endprog(void *mlx_ptr, void *win_ptr);
+int		type_of_fractal(t_params *pa, char *type);
+int		set_resolution(t_params *pa, char *res);
+int		check_resolution(t_params *pa, char *res);
+void	display_params(void);
 
 #endif

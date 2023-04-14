@@ -6,7 +6,7 @@
 #    By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/19 17:26:57 by kle-rest          #+#    #+#              #
-#    Updated: 2023/04/12 14:59:27 by kle-rest         ###   ########.fr        #
+#    Updated: 2023/04/14 17:34:48 by kle-rest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SOURCES = main.c \
 		mandelbrot.c \
 		utiles.c \
 		parsing.c \
+		zoom.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/13 15:43:01 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:51:16 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,8 @@ int		type_of_fractal(t_params *pa, char *type);
 int		set_resolution(t_params *pa, char *res);
 int		check_resolution(t_params *pa, char *res);
 void	display_params(void);
+void	zoom(t_params *pa);
+void	dezoom(t_params *pa);
+void	reset_backgrown(t_params *pa);
 
 #endif

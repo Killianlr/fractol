@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/14 17:51:16 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:34:56 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,12 @@ typedef struct params_win
 	int		type;
 	void	*mlx_ptr;
 	void	*win_ptr;
-	int		x;
 	int		resx;
-	int		y;
 	int		resy;
-	int		x1;
-	int		y1;
-	int		x2;
-	int		y2;
+	double		x1;
+	double		y1;
+	double		x2;
+	double		y2;
 }t_params;
 
 
@@ -48,8 +46,6 @@ typedef struct mdlbt
 	int		i_max;
 	double	image_x;
 	double	image_y;
-	int	x;
-	int	y;
 }t_a;
 
 int		mandelbrot(t_params *pa);
@@ -61,5 +57,9 @@ void	display_params(void);
 void	zoom(t_params *pa);
 void	dezoom(t_params *pa);
 void	reset_backgrown(t_params *pa);
+void	left(t_params *pa);
+void	right(t_params *pa);
+void	up(t_params *pa);
+void	down(t_params *pa);
 
 #endif

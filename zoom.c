@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 17:20:23 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/14 17:51:23 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:01:55 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 void	set_params_mdblt(t_params *pa, t_a *mdblt)
 {
-	mdblt->x1 = -2.1;
-	mdblt->x2 = 0.6;
-	mdblt->y1 = -1.2;
-	mdblt->y2 = 1.2;
+	mdblt->x1 = pa->x1;
+	mdblt->x2 = pa->x2;
+	mdblt->y1 = pa->y1;
+	mdblt->y2 = pa->y2;
 	mdblt->image_x = pa->resx;
 	mdblt->image_y = pa->resy;
 	mdblt->zoom_x = mdblt->image_x/(mdblt->x2 - mdblt->x1);
 	mdblt->zoom_y = mdblt->image_y/(mdblt->y2 - mdblt->y1);
-	mdblt->i_max = 50;
+	mdblt->i_max = 100;
 }
 
 int	algo_mandelbrot(t_a *mdblt, int x, int y, int i)
@@ -53,30 +53,24 @@ int	mandelbrot(t_params *pa)
 	t_a	*mdblt;
 	int	x;
 	int	y;
-	int	a;
-	int	b;
 	int	i;
 
 	mdblt = (t_a *)malloc(sizeof(t_a));
-	x = pa->x;
-	a = 0;
+	x = 0;
 	set_params_mdblt(pa, mdblt);
-	printf("pa->x = %d pa->y = %d\n", pa->x, pa->y);
-	printf("pa->resx = %d pa->resy = %d\n", pa->resx, pa->resy);
-	// printf("image_x = %f image_y = %f\n", mdblt->image_x, mdblt->image_y);
+	// printf("pa->resx = %d pa->resy = %d\n", pa->resx, pa->resy);
+	printf("x1 = %f x2 = %f\n", mdblt->x1, mdblt->x2);
+	printf("y1 = %f y2 = %f\n", mdblt->y1, mdblt->y2);
 	while (x < mdblt->image_x)
 	{
-		y = pa->y;
-		b = 0;
+		y = 0;
 		x++;
-		a++;
 		while (y < mdblt->image_y)
 		{
 			y++;
-			b++;
 			i = 0;
-			i = algo_mandelbrot(mdblt, a, b, i);
-			if (x >= 0 && y >= 0 && i == mdblt->i_max)
+			i = algo_mandelbrot(mdblt, x, y, i);
+			if (i == mdblt->i_max)
 			{	
 				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 65535);
 			}
@@ -85,24 +79,50 @@ int	mandelbrot(t_params *pa)
 		}
 	}
 	printf("x = %d, y = %d\n", x, y);
-	printf("a = %d, b = %d\n", a, b);
 	return (0);	
 }
 
 void	zoom(t_params *pa)
 {
-	pa->x = pa->x - 50;
-	pa->y = pa->y - 50;
-	pa->resx = pa->resx + 100;
-	pa->resy = pa->resy + 100;
+	pa->x1 -= pa->x1 * 0.1;
+	pa->x2 -= pa->x2 * 0.1;
+	pa->y1 -= pa->y1 * 0.1;
+	pa->y2 -= pa->y2 * 0.1;
 	mandelbrot(pa);
 }
 void	dezoom(t_params *pa)
 {
-	pa->x = pa->x + 50;
-	pa->y = pa->y + 50;
-	pa->resx = pa->resx - 100;
-	pa->resy = pa->resy - 100;
-	reset_backgrown(pa);
+	pa->x1 += -0.12;
+	pa->x2 += 0.09;
+	pa->y1 += -0.12;
+	pa->y2 += 0.09;
+	mandelbrot(pa);
+}
+
+void	left(t_params *pa)
+{
+	pa->x1 -= 0.12;
+	pa->x2 -= 0.12;
+	mandelbrot(pa);
+}
+
+void	right(t_params *pa)
+{
+	pa->x1 += 0.12;
+	pa->x2 += 0.12;
+	mandelbrot(pa);
+}
+
+void	up(t_params *pa)
+{
+	pa->y1 -= 0.09;
+	pa->y2 -= 0.09;
+	mandelbrot(pa);
+}
+
+void	down(t_params *pa)
+{
+	pa->y1 += 0.09;
+	pa->y2 += 0.09;
 	mandelbrot(pa);
 }

@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:41:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/14 17:50:10 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:05:01 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,27 +85,31 @@ int	deal_mouse(int key, int x, int y, t_params *pa)
 
 int	deal_key(int key, t_params *pa)
 {
-	// printf("keyboard = %d\n", key);
+	printf("keyboard = %d\n", key);
 	if (key == 65307)
 		endprog(pa->mlx_ptr, pa->win_ptr);
-	if (key == 65362)
+	if (key == 122)
 		zoom(pa);// printf("zoom\n");
-	if (key == 65364)
+	if (key == 100)
 		dezoom(pa);//printf("dezoom\n");
+	if (key == 65362)
+		up(pa);
+	if (key == 65364)
+		down(pa);
 	if (key == 65363)
-		printf("droite\n");
+		right(pa);
 	if (key == 65361)
-		printf("gauche\n");
+		left(pa);
 	return (0);
 }
 
 void	setup(t_params *pa)
 {
-	// pa->x2 = 0;
-	// pa->y2 = 0;
-	pa->x = 0;
-	pa->y = 0;
-	printf("x = %d, y = %d\n", pa->x, pa->y);
+
+	pa->x1 = -2.1;
+	pa->x2 = 0.6;
+	pa->y1 = -1.2;
+	pa->y2 = 1.2;
 	if (pa->type == 1)
 		mandelbrot(pa);
 	mlx_key_hook(pa->win_ptr, deal_key, pa);

@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:59:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/13 10:32:48 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:06:30 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	set_resolution(t_params *pa, char *res)
 
 int	check_resolution(t_params *pa, char *res)
 {
-	if (ft_strncmp(res, "1366x768", 9) == 0)
+	if (ft_strncmp(res, "1200x900", 9) == 0)
 	{
-		pa->resx = 1366;
-		pa->resy = 768;
+		pa->resx = 1200;
+		pa->resy = 900;
 		return (0);
 	}
 	else if (ft_strncmp(res, "1600x900", 9) == 0)

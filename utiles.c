@@ -22,3 +22,8 @@ void	endprog(void *mlx_ptr, void *win_ptr)
 	mlx_destroy_window(mlx_ptr, win_ptr);
 	exit(0);
 }
+
+int	create_trgb(int t, int r, int g, int b)
+{
+	return (t << 24 | r << 16 | g << 8 | b);
+}

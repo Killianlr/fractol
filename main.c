@@ -29,58 +29,16 @@ void	reset_backgrown(t_params *pa)
 	}
 }
 
-// void	thefuckingzoom(t_params *pa, int posx, int posy)
-// {
-// 	printf("resx = %d, resu = %d, posx = %d, posy = %d\n", pa->resx, pa->resy, posx, posy);
-// 	int	x1;
-// 	int	x2;
-// 	int	y1;
-// 	int	y2;
-
-// 	x2 = (pa->resx + posx) - pa->resx;
-// 	x1 = pa->resx - posx;
-// 	y2 = (pa->resy + posy) - pa->resy;
-// 	y1 = pa->resy - posy;
-// 	x1 = x1 *0.133;
-// 	x2 = x2 *0.133;
-// 	y1 = y1 *0.133;
-// 	y2 = y2 *0.133;
-// 	pa->x1 = x1;
-// 	pa->y1 = y1;
-// 	pa->x2 = pa->x2 - x2;
-// 	pa->y2 = pa->y2 - y2;
-// 	printf("x1 = %d, x2 = %d\n", x1, x2);
-// 	printf("y1 = %d, y2 = %d\n", y1, y2);
-// }
-
 int	deal_mouse(int key, int x, int y, t_params *pa)
 {
 	(void)key;
 	(void)x;
 	(void)y;
 	(void)pa;
-	if (key == 1)
-		printf("x = %d y = %d\n", x, y);
-	// if (key == 4)
-	// {
-	// 	reset_backgrown(pa);
-	// 	// pa->resx = pa->resx - (pa->resx * 0.1);
-	// 	// pa->resy = pa->resy - (pa->resy * 0.1);
-	// 	thefuckingzoom(pa, x, y);
-	// 	pa->resx = pa->resx + pa->x1;
-	// 	pa->resy = pa->resy + pa->y1;
-	// 	printf("pa->x2 = %d pa->y2 = %d\n", pa->x2, pa->y2);
-	// 	mandelbrot(pa);
-	// }
-	// if (key == 5)
-	// {
-	// 	reset_backgrown(pa);
-	// 	thefuckingzoom(pa, x, y);
-	// 	pa->resx = pa->resx - pa->x1;
-	// 	pa->resy = pa->resy - pa->y1;
-	// 	printf("x = %d y = %d\n", pa->x, pa->y);
-	// 	mandelbrot(pa);
-	// }
+	if (key == 6)
+		mouse_zoom(pa, x, y);
+	printf("key = %d\n", key);
+	printf("x = %d y = %d\n", x, y);
 	return (0);
 }
 
@@ -90,9 +48,9 @@ int	deal_key(int key, t_params *pa)
 	if (key == 65307)
 		endprog(pa->mlx_ptr, pa->win_ptr);
 	if (key == 122)
-		zoom(pa);// printf("zoom\n");
+		zoom(pa);
 	if (key == 100)
-		dezoom(pa);//printf("dezoom\n");
+		dezoom(pa);
 	if (key == 65362)
 		up(pa);
 	if (key == 65364)
@@ -106,10 +64,12 @@ int	deal_key(int key, t_params *pa)
 
 void	setup(t_params *pa)
 {
+	// t_data *data;
 	pa->xc = -1;
 	pa->yc = 0;
 	pa->zoom = 2.0/3;
 	pa->aspect = (float)pa->resx / pa->resy;
+	pa->data = (t_data *)malloc(sizeof(t_data));
 	if (pa->type == 1)
 		mandelbrot(pa);
 	mlx_key_hook(pa->win_ptr, deal_key, pa);

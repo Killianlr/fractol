@@ -57,11 +57,8 @@ int	mandelbrot(t_params *pa)
 
 	mdblt = (t_a *)malloc(sizeof(t_a));
 	x = 0;
+	pa->data->img = mlx_new_image(pa->mlx_ptr, pa->resx, pa->resy);
 	set_params_mdblt(pa, mdblt);
-	// printf("pa->resx = %d pa->resy = %d\n", pa->resx, pa->resy);
-	printf("x1 = %f x2 = %f\n", mdblt->x1, mdblt->x2);
-	printf("y1 = %f y2 = %f\n", mdblt->y1, mdblt->y2);
-	printf("zoom = %f\n", pa->zoom);
 	while (x < mdblt->image_x)
 	{
 		y = 0;
@@ -73,14 +70,32 @@ int	mandelbrot(t_params *pa)
 			i = algo_mandelbrot(mdblt, x, y, i);
 			if (i == mdblt->i_max)
 			{	
-				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 65535);
+				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 78090);
 			}
 			else
 				mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 0);
 		}
 	}
+	// mlx_put_image_to_window(pa->mlx_ptr, pa->win_ptr, pa->data->img, 0, 0);
 	printf("x = %d, y = %d\n", x, y);
 	return (0);	
+}
+
+void	mouse_zoom(t_params *pa, int x, int y)
+{
+	(void)x;
+	(void)y;
+	pa->zoom *= 1.2;
+	// resx = 1200
+	// resy = 900
+	// xc = -1
+	// yc = 0
+	// x = 300
+	// y = 200
+	printf("ZOOOOOOM\n");
+	 pa->xc -= (pa->resx/2 - x) * 0.9 / pa->resx  / pa->zoom;
+	 pa->yc -= (pa->resy/2 - y) * 0.9 / pa->resy  / pa->zoom;
+	mandelbrot(pa);
 }
 
 void	zoom(t_params *pa)
@@ -96,24 +111,24 @@ void	dezoom(t_params *pa)
 
 void	left(t_params *pa)
 {
-	pa->xc -= 0.5/pa->zoom;
+	pa->xc -= 0.2/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	right(t_params *pa)
 {
-	pa->xc += 0.5/pa->zoom;
+	pa->xc += 0.2/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	up(t_params *pa)
 {
-	pa->yc -= 0.5/pa->zoom;
+	pa->yc -= 0.2/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	down(t_params *pa)
 {
-	pa->yc += 0.5/pa->zoom;
+	pa->yc += 0.2/pa->zoom;
 	mandelbrot(pa);
 }

@@ -21,6 +21,17 @@
 #include "libft/libft.h"
 #include "libft/ft_printf/ft_printf.h"
 
+
+typedef struct s_data {
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+	int		width;
+	int		height;
+}t_data;
+
 typedef struct params_win
 {
 	int		type;
@@ -32,6 +43,7 @@ typedef struct params_win
 	double		yc;
 	double		zoom;
 	double		aspect;
+	t_data		*data;
 }t_params;
 
 
@@ -48,6 +60,7 @@ typedef struct mdlbt
 	double	image_y;
 }t_a;
 
+
 int		mandelbrot(t_params *pa);
 void	endprog(void *mlx_ptr, void *win_ptr);
 int		type_of_fractal(t_params *pa, char *type);
@@ -61,5 +74,7 @@ void	left(t_params *pa);
 void	right(t_params *pa);
 void	up(t_params *pa);
 void	down(t_params *pa);
+void	mouse_zoom(t_params *pa, int x, int y);
+int		create_trgb(int t, int r, int g, int b);
 
 #endif

@@ -28,10 +28,10 @@ typedef struct params_win
 	void	*win_ptr;
 	int		resx;
 	int		resy;
-	double		x1;
-	double		y1;
-	double		x2;
-	double		y2;
+	double		xc;
+	double		yc;
+	double		zoom;
+	double		aspect;
 }t_params;
 
 

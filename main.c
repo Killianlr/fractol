@@ -55,11 +55,12 @@ void	reset_backgrown(t_params *pa)
 
 int	deal_mouse(int key, int x, int y, t_params *pa)
 {
-	printf("hello");
 	(void)key;
 	(void)x;
 	(void)y;
 	(void)pa;
+	if (key == 1)
+		printf("x = %d y = %d\n", x, y);
 	// if (key == 4)
 	// {
 	// 	reset_backgrown(pa);
@@ -105,11 +106,10 @@ int	deal_key(int key, t_params *pa)
 
 void	setup(t_params *pa)
 {
-
-	pa->x1 = -2.1;
-	pa->x2 = 0.6;
-	pa->y1 = -1.2;
-	pa->y2 = 1.2;
+	pa->xc = -1;
+	pa->yc = 0;
+	pa->zoom = 2.0/3;
+	pa->aspect = (float)pa->resx / pa->resy;
 	if (pa->type == 1)
 		mandelbrot(pa);
 	mlx_key_hook(pa->win_ptr, deal_key, pa);

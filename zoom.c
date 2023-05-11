@@ -14,10 +14,10 @@
 
 void	set_params_mdblt(t_params *pa, t_a *mdblt)
 {
-	mdblt->x1 = pa->x1;
-	mdblt->x2 = pa->x2;
-	mdblt->y1 = pa->y1;
-	mdblt->y2 = pa->y2;
+	mdblt->x1 = pa->xc - pa->aspect/pa->zoom;
+	mdblt->x2 = pa->xc + pa->aspect/pa->zoom;
+	mdblt->y1 = pa->yc - 1/pa->zoom;
+	mdblt->y2 = pa->yc + 1/pa->zoom;
 	mdblt->image_x = pa->resx;
 	mdblt->image_y = pa->resy;
 	mdblt->zoom_x = mdblt->image_x/(mdblt->x2 - mdblt->x1);
@@ -61,6 +61,7 @@ int	mandelbrot(t_params *pa)
 	// printf("pa->resx = %d pa->resy = %d\n", pa->resx, pa->resy);
 	printf("x1 = %f x2 = %f\n", mdblt->x1, mdblt->x2);
 	printf("y1 = %f y2 = %f\n", mdblt->y1, mdblt->y2);
+	printf("zoom = %f\n", pa->zoom);
 	while (x < mdblt->image_x)
 	{
 		y = 0;
@@ -84,45 +85,35 @@ int	mandelbrot(t_params *pa)
 
 void	zoom(t_params *pa)
 {
-	pa->x1 -= pa->x1 * 0.1;
-	pa->x2 -= pa->x2 * 0.1;
-	pa->y1 -= pa->y1 * 0.1;
-	pa->y2 -= pa->y2 * 0.1;
+	pa->zoom *= 1.2;
 	mandelbrot(pa);
 }
 void	dezoom(t_params *pa)
 {
-	pa->x1 += -0.12;
-	pa->x2 += 0.09;
-	pa->y1 += -0.12;
-	pa->y2 += 0.09;
+	pa->zoom /= 1.2;
 	mandelbrot(pa);
 }
 
 void	left(t_params *pa)
 {
-	pa->x1 -= 0.12;
-	pa->x2 -= 0.12;
+	pa->xc -= 0.5/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	right(t_params *pa)
 {
-	pa->x1 += 0.12;
-	pa->x2 += 0.12;
+	pa->xc += 0.5/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	up(t_params *pa)
 {
-	pa->y1 -= 0.09;
-	pa->y2 -= 0.09;
+	pa->yc -= 0.5/pa->zoom;
 	mandelbrot(pa);
 }
 
 void	down(t_params *pa)
 {
-	pa->y1 += 0.09;
-	pa->y2 += 0.09;
+	pa->yc += 0.5/pa->zoom;
 	mandelbrot(pa);
 }

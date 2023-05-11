@@ -32,10 +32,9 @@ CFLAGS = -Wall -Werror -Wextra -Iminilibx-linux
 
 $(NAME): $(OBJECTS)
 		make -C libft
-		make printf -C libft
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) minilibx-linux/libmlx.a $(OPENGL) $(LIB)
 
-all: ft_printf $(NAME) 
+all: $(NAME) 
 
 clean: 
 				rm -f $(OBJECTS)

@@ -6,12 +6,11 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:41:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/12 14:26:11 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:49:37 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 int	deal_mouse(int key, int x, int y, t_params *pa)
 {
@@ -19,19 +18,19 @@ int	deal_mouse(int key, int x, int y, t_params *pa)
 	(void)x;
 	(void)y;
 	(void)pa;
+	if (key == 1)
+		printf("x = %d, y = %d\n", x, y);
 	if (key == 4)
 		mouse_zoom(pa, x, y);
 	if (key == 5)
 		dezoom(pa);
-	printf("key = %d\n", key);
 	return (0);
 }
 
 int	deal_key(int key, t_params *pa)
 {
-	printf("keyboard = %d\n", key);
 	if (key == 65307)
-		endprog(pa->mlx_ptr, pa->win_ptr);
+		endprog(pa);
 	if (key == 122)
 		zoom(pa);
 	if (key == 100)
@@ -49,14 +48,16 @@ int	deal_key(int key, t_params *pa)
 
 void	setup(t_params *pa)
 {
-	// t_data *data;
 	pa->xc = -1;
 	pa->yc = 0;
 	pa->zoom = 2.0/3;
 	pa->aspect = (float)pa->resx / pa->resy;
 	pa->data = (t_data *)malloc(sizeof(t_data));
 	if (pa->type == 1)
+	{
+		pa->mdblt = (t_a *)malloc(sizeof(t_a));
 		mandelbrot(pa);
+	}
 	mlx_key_hook(pa->win_ptr, deal_key, pa);
 	mlx_mouse_hook(pa->win_ptr, deal_mouse, pa);
 	mlx_loop(pa->mlx_ptr);

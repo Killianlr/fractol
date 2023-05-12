@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/18 13:34:56 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:39:44 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,15 @@ typedef struct mdlbt
 	double	image_y;
 }t_a;
 
+// typedef struct palette
+// {
+// 	int	a = 9734360;
+// 	int	b = 10782936;
+// 	int	c = 11831512;
+// 	int	d = 12880088;
+// 	int	e = 13928664;
+// 	int	f;
+// }t_color;
 
 int		mandelbrot(t_params *pa);
 void	endprog(void *mlx_ptr, void *win_ptr);
@@ -69,12 +78,12 @@ int		check_resolution(t_params *pa, char *res);
 void	display_params(void);
 void	zoom(t_params *pa);
 void	dezoom(t_params *pa);
-void	reset_backgrown(t_params *pa);
 void	left(t_params *pa);
 void	right(t_params *pa);
 void	up(t_params *pa);
 void	down(t_params *pa);
 void	mouse_zoom(t_params *pa, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
+void	my_mlx_pixel_put(t_params *pa, int x, int y, int color);
 
 #endif

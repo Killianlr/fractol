@@ -6,28 +6,12 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:41:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/18 14:05:01 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/12 14:26:11 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	reset_backgrown(t_params *pa)
-{
-	int	x;
-	int	y;
-	x = 0;
-	while (x < 1600)
-	{
-		y = 0;
-		while (y < 900)
-		{
-			mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 0);
-			y++;
-		}
-		x++;
-	}
-}
 
 int	deal_mouse(int key, int x, int y, t_params *pa)
 {
@@ -35,10 +19,11 @@ int	deal_mouse(int key, int x, int y, t_params *pa)
 	(void)x;
 	(void)y;
 	(void)pa;
-	if (key == 6)
+	if (key == 4)
 		mouse_zoom(pa, x, y);
+	if (key == 5)
+		dezoom(pa);
 	printf("key = %d\n", key);
-	printf("x = %d y = %d\n", x, y);
 	return (0);
 }
 

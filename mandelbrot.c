@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:47:07 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/12 16:57:18 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/17 14:49:02 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,12 @@ int	mandelbrot(t_params *pa)
 	x = 0;
 	create_image(pa);
 	set_params_mdblt(pa);
+	// pa->fract_x = pa->resx / 2;
+	// pa->fract_y = pa->resy / 2;
 	while (x < pa->mdblt->image_x)
 	{
 		y = 0;
-		x++;
+		x++;;
 		while (y < pa->mdblt->image_y)
 		{
 			y++;
@@ -68,6 +70,8 @@ int	mandelbrot(t_params *pa)
 			i = algo_mandelbrot(pa, x, y, i);
 			if (i == pa->mdblt->i_max)
 				draw(pa, x, y, 1);
+			else if (i > 45 && i < 50)
+				draw(pa, x, y, 3);
 			else
 				draw(pa, x, y, 2);
 		}

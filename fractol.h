@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/12 16:49:19 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:00:29 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,21 @@ typedef struct params_win
 	void	*win_ptr;
 	int		resx;
 	int		resy;
+	double		fract_x;
+	double		fract_y;
 	double		xc;
 	double		yc;
 	double		zoom;
 	double		aspect;
+	double		ci;
+	double		cr;
 	t_data		*data;
 	t_a			*mdblt;
 }t_params;
 
 
 int		mandelbrot(t_params *pa);
-void	endprog(t_params *pa);
+int		endprog(t_params *pa);
 int		type_of_fractal(t_params *pa, char *type);
 int		set_resolution(t_params *pa, char *res);
 int		check_resolution(t_params *pa, char *res);
@@ -78,5 +82,8 @@ int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put(t_params *pa, int x, int y, int color);
 void	create_image(t_params *pa);
 void	draw(t_params *pa, int x, int y, int e);
+void	julia(t_params *pa);
+int		deal_key_j(int key, t_params *pa);
+void	setup_julia(t_params *pa);
 
 #endif

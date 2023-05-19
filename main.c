@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 13:41:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/17 15:09:30 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:01:30 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,64 +56,75 @@ void	setup(t_params *pa)
 	pa->data->img = NULL;
 	pa->data->addr = NULL;
 	pa->mdblt = (t_a *)malloc(sizeof(t_a));
-	mandelbrot(pa);
+	if (pa->type == 1)
+		mandelbrot(pa);
+	if (pa->type == 2)
+	{
+		pa->xc = 0;
+		pa->cr = -0.8;
+		pa->ci = 0.156;
+		julia(pa);
+	}
 	mlx_key_hook(pa->win_ptr, deal_key, pa);
 	mlx_mouse_hook(pa->win_ptr, deal_mouse, pa);
 	mlx_hook(pa->win_ptr, 17, 1L<<17, endprog, pa);
 	mlx_loop(pa->mlx_ptr);
 }
 
-int	deal_key_j(int key, t_params *pa)
-{
-	if (key == 65307)
-		endprog(pa);
-	if (key == 122)
-		pa->zoom += 50;
-	if (key == 100)
-		pa->zoom -= 50;
-	if (key == 65362)
-	{
-		pa->cr = -0.7;
-		pa->ci = 0.27015;
-		// pa->ci += 0.001;
-	}
-	if (key == 65364)
-	{
-		pa->cr = -0.8;
-		pa->ci = 0.2;
-		// pa->ci -= 0.001;
-	}
-	if (key == 65363)
-	{
-		pa->cr = -0.7269;
-		pa->ci = 0.1889;
-		// pa->cr += 0.001;
-	}
-	if (key == 65361)
-	{
-		pa->cr = -0.835;
-		pa->ci = 0.2321;
-		// pa->cr -= 0.001;
-	}
-	if (key == 114)
-		setup_julia(pa);
-	julia(pa);
-	return (0);
-}
+// int	deal_key_j(int key, t_params *pa)
+// {
+// 	if (key == 65307)
+// 		endprog(pa);
+// 	if (key == 122)
+// 		pa->zoom += 50;
+// 	if (key == 100)
+// 		pa->zoom -= 50;
+// 	if (key == 65362)
+// 	{
+// 		pa->cr = -0.7;
+// 		pa->ci = 0.27015;
+// 		// pa->ci += 0.001;
+// 	}
+// 	if (key == 65364)
+// 	{
+// 		pa->cr = -0.8;
+// 		pa->ci = 0.2;
+// 		// pa->ci -= 0.001;
+// 	}
+// 	if (key == 65363)
+// 	{
+// 		pa->cr = -0.7269;
+// 		pa->ci = 0.1889;
+// 		// pa->cr += 0.001;
+// 	}
+// 	if (key == 65361)
+// 	{
+// 		pa->cr = -0.835;
+// 		pa->ci = 0.2321;
+// 		// pa->cr -= 0.001;
+// 	}
+// 	if (key == 114)
+// 		setup_julia(pa);
+// 	julia(pa);
+// 	return (0);
+// }
 
-void	setup_julia(t_params *pa)
-{
-	if (!pa->data)
-		pa->data = (t_data *)malloc(sizeof(t_data));
-	pa->cr = -0.8;
-	pa->ci = 0.156;
-	pa->zoom = 200;
-	julia(pa);
-	mlx_key_hook(pa->win_ptr, deal_key_j, pa);
-	mlx_mouse_hook(pa->win_ptr, deal_mouse, pa);
-	mlx_hook(pa->win_ptr, 17, 1L<<17, endprog, pa);
-	mlx_loop(pa->mlx_ptr);
-}
+// void	setup_julia(t_params *pa)
+// {
+// 	if (!pa->data)
+// 		pa->data = (t_data *)malloc(sizeof(t_data));
+// 	pa->data->img = NULL;
+// 	pa->data->addr = NULL;
+// 	pa->cr = -0.8;
+// 	pa->ci = 0.156;
+// 	pa->zoom = 200;
+// 	pa->mdblt = (t_a *)malloc(sizeof(t_a));
+// 	julia(pa);
+// 	mlx_key_hook(pa->win_ptr, deal_key, pa);
+// 	mlx_mouse_hook(pa->win_ptr, deal_mouse, pa);
+// 	mlx_hook(pa->win_ptr, 17, 1L<<17, endprog, pa);
+// 	mlx_loop(pa->mlx_ptr);
+// }
 
 void	create_windows(t_params *pa)
 {
@@ -125,7 +136,7 @@ void	create_windows(t_params *pa)
 	if (pa->type == 2)
 	{
 		pa->win_ptr = mlx_new_window(pa->mlx_ptr, pa->resx, pa->resy, "Julia");
-		setup_julia(pa);
+		setup(pa);
 	}
 	if (pa->type == 3)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mandelbrot.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:47:07 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/17 14:49:02 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:29:57 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	set_params_mdblt(t_params *pa)
 	pa->mdblt->image_y = pa->resy;
 	pa->mdblt->zoom_x = pa->mdblt->image_x/(pa->mdblt->x2 - pa->mdblt->x1);
 	pa->mdblt->zoom_y = pa->mdblt->image_y/(pa->mdblt->y2 - pa->mdblt->y1);
-	pa->mdblt->i_max = 50;
+	pa->mdblt->i_max = 200;
 }
 
 int	algo_mandelbrot(t_params *pa, int x, int y, int i)
@@ -43,7 +43,7 @@ int	algo_mandelbrot(t_params *pa, int x, int y, int i)
 		tmp = z_r;
 		z_r = z_r*z_r - z_i*z_i + c_r;
 		z_i = 2*z_i*tmp + c_i;
-		i = i + 1;
+		i++;
 	}
 	return (i);
 }
@@ -59,6 +59,7 @@ int	mandelbrot(t_params *pa)
 	set_params_mdblt(pa);
 	// pa->fract_x = pa->resx / 2;
 	// pa->fract_y = pa->resy / 2;
+	i = 0;
 	while (x < pa->mdblt->image_x)
 	{
 		y = 0;
@@ -66,14 +67,19 @@ int	mandelbrot(t_params *pa)
 		while (y < pa->mdblt->image_y)
 		{
 			y++;
-			i = 0;
-			i = algo_mandelbrot(pa, x, y, i);
+			i = algo_mandelbrot(pa, x, y, 0);
 			if (i == pa->mdblt->i_max)
-				draw(pa, x, y, 1);
-			else if (i > 45 && i < 50)
-				draw(pa, x, y, 3);
+				draw(pa, x, y, 0);
 			else
-				draw(pa, x, y, 2);
+				draw(pa, x, y, i);
+			// if (i == 1)
+			// 	draw(pa, x, y, 4);
+			// if (i == 2)
+			// 	draw(pa, x, y, 5);
+			// else if (i > 45 && i < 50)
+			// 	draw(pa, x, y, 3);
+			// else
+			// 	draw(pa, x, y, 2);
 		}
 	}
 	// mlx_clear_window(pa->mlx_ptr, pa->win_ptr);

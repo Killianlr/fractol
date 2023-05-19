@@ -3,29 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   julia.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:40:05 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/17 14:47:38 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:12:50 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <complex.h>
 
+void	set_params_julia(t_params *pa)
+{
+	pa->mdblt->x1 = pa->xc - pa->aspect/pa->zoom;
+	pa->mdblt->x2 = pa->xc + pa->aspect/pa->zoom;
+	pa->mdblt->y1 = pa->yc - 1/pa->zoom;
+	pa->mdblt->y2 = pa->yc + 1/pa->zoom;
+	pa->mdblt->image_x = pa->resx;
+	pa->mdblt->image_y = pa->resy;
+	pa->mdblt->zoom_x = pa->mdblt->image_x/(pa->mdblt->x2 - pa->mdblt->x1);
+	pa->mdblt->zoom_y = pa->mdblt->image_y/(pa->mdblt->y2 - pa->mdblt->y1);
+	pa->mdblt->i_max = 200;
+}
+
+int	algo_julia(t_params *pa, int x, int y, int i)
+{
+	double	tmp;
+	double	z_r;
+	double	z_i;
+
+	tmp = 0;
+	z_r = (x / pa->mdblt->zoom_x) + pa->mdblt->x1;
+	z_i = (y / pa->mdblt->zoom_y) + pa->mdblt->y1;
+	while (z_r*z_r + z_i*z_i < 4 && i < pa->mdblt->i_max)
+	{
+		tmp = z_r;
+		z_r = z_r*z_r - z_i*z_i + pa->cr;
+		z_i = 2*z_i*tmp + pa->ci;
+		i++;
+	}
+	return (i);
+}
+
 void	julia(t_params *pa)
 {
 	int	x;
 	int	y;
-	int	n;
 	int	i;
-	double	complex z;
-	double	complex	z0;
-	double	complex c;
-	
+
 	y = 0;
-	i = 1000;
-	c = pa->cr + pa->ci * I;
+	i = 0;
+	create_image(pa);
+	set_params_julia(pa);
 	while (y < pa->resy)
 	{
 		y++;
@@ -33,17 +62,13 @@ void	julia(t_params *pa)
 		while (x < pa->resx)
 		{
 			x++;
-			z = ((x - pa->resx / 2) / pa->zoom) + ((y - pa->resy / 2) / pa->zoom) * I;
-			z0 = z;
-			n = 0;
-			while (n < i)
-			{
-				n++;
-				z = z * z + c;
-				if (creal(z) * creal(z) + cimag(z) * cimag(z) > 4.0)
-					break;
-			}
-			mlx_pixel_put(pa->mlx_ptr, pa->win_ptr, x, y, 255 * n / i);
+			i = algo_julia(pa, x, y, 0);
+			if (i == pa->mdblt->i_max)
+				draw(pa, x, y, 0);
+			else
+				draw(pa, x, y, i);
 		}
 	}
+	mlx_put_image_to_window(pa->mlx_ptr, pa->win_ptr, pa->data->img, 0, 0);
+	mlx_destroy_image(pa->mlx_ptr, pa->data->img);
 }

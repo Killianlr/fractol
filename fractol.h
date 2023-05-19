@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/17 15:00:29 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 16:27:25 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct params_win
 	double		zoom;
 	double		aspect;
 	double		ci;
-	double		cr;
+	double		cr;	
 	t_data		*data;
 	t_a			*mdblt;
 }t_params;

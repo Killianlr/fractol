@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 11:29:41 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/17 14:45:32 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:13:06 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,7 @@ void	create_image(t_params *pa)
 void	draw(t_params *pa, int x, int y, int e)
 {
 	int	t;
-	int	r;
-	int	g;
-	int	b;
-	double	midx;
-	double	midy;
-	double	range;
 
-	midx = pa->resx /2;
-	midy = pa->resy /2;
-	if (midx < 0)
-		midx *= -1;
-	if (midy < 0)
-		midy *=-1;
-	range = sqrt(pow(x - midx, 2) + pow(y - midy, 2));
-	t = 255;
-	if (e == 1)
-	{
-		r = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		g = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		b = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		my_mlx_pixel_put(pa, x, y, create_trgb(t, r, g, b));
-	}
-	if (e == 2)
-	{
-		r = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		g = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		b = 255 - ((range / sqrt(pow(midx, 2) + pow(midy, 2))) * 255);
-		my_mlx_pixel_put(pa, x, y, create_trgb(t, r, g, b));
-	}
-	if (e == 3)
-	{
-		my_mlx_pixel_put(pa, x, y, create_trgb(t, 0, 0, 0));
-	}
+	t = 50;
+	my_mlx_pixel_put(pa, x, y, create_trgb(t, e*1.2, e*0.9, e*0.7));
 }

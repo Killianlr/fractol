@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
+/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:59:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/04/18 13:06:30 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/19 17:08:32 by flavian          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int	check_resolution(t_params *pa, char *res)
 {
 	if (ft_strncmp(res, "1200x900", 9) == 0)
 	{
-		pa->resx = 1200;
-		pa->resy = 900;
+		pa->resx = 600;
+		pa->resy = 450;
 		return (0);
 	}
 	else if (ft_strncmp(res, "1600x900", 9) == 0)

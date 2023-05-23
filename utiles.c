@@ -16,6 +16,8 @@ int	endprog(t_params *pa)
 {
 	mlx_clear_window(pa->mlx_ptr, pa->win_ptr);
 	mlx_destroy_window(pa->mlx_ptr, pa->win_ptr);
+	mlx_destroy_display(pa->mlx_ptr);
+	free(pa->mlx_ptr);
 	free(pa->data);
 	free(pa->algo);
 	free(pa);

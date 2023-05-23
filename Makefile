@@ -46,7 +46,7 @@ OBJTEST = $(TESTSRC:.c=.o)
 
 OPENGL = -lXext -lX11 -lbsd -lm
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -Iminilibx-linux 
+CFLAGS = -Iminilibx-linux 
 
 $(NAME): $(OBJECTS)
 		make -C libft

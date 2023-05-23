@@ -25,6 +25,26 @@ void	set_params_mdblt(t_params *pa)
 	pa->algo->i_max = 200;
 }
 
+
+
+void powComp(double *add_r, double *add_i, int n, double c_r, double c_i)
+{
+	double tmp;
+	double c = *add_r;
+	double d = *add_i;
+	double a = c;
+	double b = d;
+	while (n > 1)
+	{
+		tmp = a;
+		a = a*c - d*b;
+		b = d*tmp + b*c;
+		n--;
+	}
+	*add_r = a;
+	*add_i = b;
+}
+
 int	algo_mandelbrot(t_params *pa, int x, int y, int i)
 {
 	double	tmp;
@@ -40,9 +60,14 @@ int	algo_mandelbrot(t_params *pa, int x, int y, int i)
 	z_i = 0;
 	while (z_r*z_r + z_i*z_i < 4 && i < pa->algo->i_max)
 	{
-		tmp = z_r;
-		z_r = z_r*z_r - z_i*z_i + c_r;
-		z_i = 2*z_i*tmp + c_i;
+		powComp(&z_r, &z_i, 12, c_r, c_i);
+		z_r += c_r;
+		z_i += c_i;
+		// tmp = z_r;
+		// // z_r = z_r*z_r - z_i*z_i + c_r;
+		// // z_i = 2*z_i*tmp + c_i;
+		// z_r = (z_r*z_r*z_r - 3*z_r*z_i*z_i) + c_r;
+		// z_i =  (3*tmp*tmp*z_i - z_i*z_i*z_i) + c_i;
 		i++;
 	}
 	return (i);

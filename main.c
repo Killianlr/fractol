@@ -87,5 +87,24 @@ int	main(int ac, char **av)
 		set_julia_shape(pa, av[3], av[4]);
 	pa->mlx_ptr = mlx_init();
 	create_windows(pa);
+	endprog(pa);
 	return (0);
 }
+
+
+// int main(int ac, char **av)
+// {
+// 	void *mlx_ptr;
+// 	void *win_ptr;
+// 	void *img_ptr;
+// 	mlx_ptr = mlx_init();
+// 	win_ptr = mlx_new_window(mlx_ptr, 500, 500, "mlx 42");
+	
+// 	img_ptr = mlx_new_image(mlx_ptr, 500, 500);
+// 	mlx_destroy_image(mlx_ptr, img_ptr);
+// 	mlx_destroy_window(mlx_ptr, win_ptr);
+// 	
+
+// 	return (0);
+// }
+

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fractol.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/19 16:27:25 by flavian          ###   ########.fr       */
+/*   Updated: 2023/05/23 15:12:43 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include "libft/libft.h"
-#include "libft/ft_printf/ft_printf.h"
+#include "ft_printf/ft_printf.h"
 
 
 typedef struct s_data {
@@ -30,9 +30,12 @@ typedef struct s_data {
 	int		endian;
 	int		width;
 	int		height;
+	double		r;
+	double		g;
+	double		b;
 }t_data;
 
-typedef struct mdlbt
+typedef struct algo
 {
 	double	x1;
 	double	x2;
@@ -59,9 +62,9 @@ typedef struct params_win
 	double		zoom;
 	double		aspect;
 	double		ci;
-	double		cr;	
+	double		cr;
 	t_data		*data;
-	t_a			*mdblt;
+	t_a			*algo;
 }t_params;
 
 
@@ -70,6 +73,8 @@ int		endprog(t_params *pa);
 int		type_of_fractal(t_params *pa, char *type);
 int		set_resolution(t_params *pa, char *res);
 int		check_resolution(t_params *pa, char *res);
+int		set_julia_shape(t_params *pa, char *cr, char *ci);
+double	ft_atoi_f(const char *nptr);
 void	display_params(void);
 void	zoom(t_params *pa);
 void	dezoom(t_params *pa);
@@ -81,9 +86,16 @@ void	mouse_zoom(t_params *pa, int x, int y);
 int		create_trgb(int t, int r, int g, int b);
 void	my_mlx_pixel_put(t_params *pa, int x, int y, int color);
 void	create_image(t_params *pa);
+int		deal_key(int key, t_params *pa);
+int		deal_mouse(int key, int x, int y, t_params *pa);
 void	draw(t_params *pa, int x, int y, int e);
 void	julia(t_params *pa);
-int		deal_key_j(int key, t_params *pa);
-void	setup_julia(t_params *pa);
+void	setup(t_params *pa);
+void	color(t_params *pa, int i);
+void	boucle_1(t_params *pa);
+void	boucle_2(t_params *pa);
+void	boucle_3(t_params *pa);
+void	boucle_4(t_params *pa);
+void	boucle_5(t_params *pa);
 
 #endif

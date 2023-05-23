@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 14:59:11 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/19 17:08:32 by flavian          ###   ########.fr       */
+/*   Updated: 2023/05/23 15:15:52 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+int	set_julia_shape(t_params *pa, char *cr, char *ci)
+{
+	if (!cr)
+	{
+		ft_printf("cr = -0.8 ; ci = 0.156\n");
+		return (0);
+	}
+	pa->cr = ft_atoi_f(cr);
+	if (cr && !ci)
+	{
+		ft_printf("cr = %f ; ci = 0.156\n", pa->cr);
+		return (0);
+	}
+	pa->ci = ft_atoi_f(ci);
+	if (cr && ci)
+		ft_printf("cr = %f ; ci = %f\n", pa->cr, pa->ci);
+	return (0);
+}
 
 int	type_of_fractal(t_params *pa, char *type)
 {
@@ -22,7 +41,7 @@ int	type_of_fractal(t_params *pa, char *type)
 		pa->type = 3;
 	else
 	{
-		printf("choose your fractal : Mandelbrot Julia Other\n");
+		ft_printf("choose your fractal : Mandelbrot Julia Other\n");
 		free(pa);
 		return (1);
 	}
@@ -33,15 +52,15 @@ int	set_resolution(t_params *pa, char *res)
 {
 	if (!res)
 	{
-		printf("choose your resolution : 1366x768 1600x900");
-		printf(" 1920x1080 2560x1440\n");
+		ft_printf("choose your resolution : 600x450 900x675");
+		ft_printf(" 1200x900 fullscreen\n");
 		free(pa);
 		return (1);
 	}
 	if (check_resolution(pa, res))
 	{
-		printf("choose your resolution : 1366x768 1600x900");
-		printf(" 1920x1080 2560x1440\n");
+		ft_printf("choose your resolution : 600x450 900x675");
+		ft_printf(" 1200x900 fullscreen\n");
 		free(pa);
 		return (1);
 	}
@@ -50,25 +69,25 @@ int	set_resolution(t_params *pa, char *res)
 
 int	check_resolution(t_params *pa, char *res)
 {
-	if (ft_strncmp(res, "1200x900", 9) == 0)
+	if (ft_strncmp(res, "600x450", 9) == 0)
 	{
 		pa->resx = 600;
 		pa->resy = 450;
 		return (0);
 	}
-	else if (ft_strncmp(res, "1600x900", 9) == 0)
+	else if (ft_strncmp(res, "900x675", 9) == 0)
 	{
-		pa->resx = 1600;
+		pa->resx = 900;
+		pa->resy = 675;
+		return (0);
+	}
+	else if (ft_strncmp(res, "1200x900", 10) == 0)
+	{
+		pa->resx = 1200;
 		pa->resy = 900;
 		return (0);
 	}
-	else if (ft_strncmp(res, "1920x1080", 10) == 0)
-	{
-		pa->resx = 1920;
-		pa->resy = 1080;
-		return (0);
-	}
-	else if (ft_strncmp(res, "2560x1440", 10) == 0)
+	else if (ft_strncmp(res, "fullscreen", 10) == 0)
 	{
 		pa->resx = 2560;
 		pa->resy = 1440;
@@ -79,12 +98,12 @@ int	check_resolution(t_params *pa, char *res)
 
 void	display_params(void)
 {
-	printf("/------------------------------\\\n");
-	printf("|[Type of fractal] [Resolution]|\n");
-	printf("|------------------------------|\n");
-	printf("|  [Mandelbrot]     [1366x768] |\n");
-	printf("|  [Julia]          [1600x900] |\n");
-	printf("|  [Other]          [1920x1080]|\n");
-	printf("|                   [2560x1440]|\n");
-	printf("\\------------------------------/\n");
+	ft_printf("/------------------------------\\\n");
+	ft_printf("|[Type of fractal] [Resolution] |\n");
+	ft_printf("|-------------------------------|\n");
+	ft_printf("|  [Mandelbrot]     [600x450]   |\n");
+	ft_printf("|  [Julia]          [900x675]   |\n");
+	ft_printf("|  [Other]          [1200x900]  |\n");
+	ft_printf("|                   [fullscreen]|\n");
+	ft_printf("\\------------------------------/\n");
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utiles.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flavian <flavian@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 11:29:41 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/19 17:13:06 by flavian          ###   ########.fr       */
+/*   Updated: 2023/05/23 14:55:24 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	endprog(t_params *pa)
 	mlx_clear_window(pa->mlx_ptr, pa->win_ptr);
 	mlx_destroy_window(pa->mlx_ptr, pa->win_ptr);
 	free(pa->data);
-	free(pa->mdblt);
+	free(pa->algo);
 	free(pa);
 	exit(0);
 }
@@ -44,10 +44,25 @@ void	create_image(t_params *pa)
 			&pa->data->line_length, &pa->data->endian);
 }
 
+void	color(t_params *pa, int i)
+{
+	if (i == 1)
+		pa->data->r += 0.1;
+	if (i == 2)
+		pa->data->g += 0.1;
+	if (i == 3)
+		pa->data->b += 0.1;
+	if (pa->type == 1)
+		mandelbrot(pa);
+	if (pa->type == 2)
+		julia(pa);
+}
+
 void	draw(t_params *pa, int x, int y, int e)
 {
 	int	t;
 
 	t = 50;
-	my_mlx_pixel_put(pa, x, y, create_trgb(t, e*1.2, e*0.9, e*0.7));
+	my_mlx_pixel_put(pa, x, y, create_trgb(t, e*pa->data->r, 
+						e*pa->data->g, e*pa->data->b));
 }

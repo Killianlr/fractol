@@ -6,21 +6,20 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 17:26:20 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/23 15:12:43 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/24 21:27:28 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
-#include "../minilibx-linux/mlx.h"
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <math.h>
-#include "libft/libft.h"
-#include "ft_printf/ft_printf.h"
-
+# include "../minilibx-linux/mlx.h"
+# include <stdio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <math.h>
+# include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 
 typedef struct s_data {
 	void	*img;
@@ -30,9 +29,10 @@ typedef struct s_data {
 	int		endian;
 	int		width;
 	int		height;
-	double		r;
-	double		g;
-	double		b;
+	double	r;
+	double	g;
+	double	b;
+	int		c;
 }t_data;
 
 typedef struct algo
@@ -50,25 +50,23 @@ typedef struct algo
 
 typedef struct params_win
 {
-	int		type;
-	void	*mlx_ptr;
-	void	*win_ptr;
-	int		resx;
-	int		resy;
-	double		fract_x;
-	double		fract_y;
+	int			type;
+	void		*mlx_ptr;
+	void		*win_ptr;
+	int			rx;
+	int			ry;
 	double		xc;
 	double		yc;
 	double		zoom;
 	double		aspect;
 	double		ci;
 	double		cr;
+	int			c;
 	t_data		*data;
 	t_a			*algo;
 }t_params;
 
-
-int		mandelbrot(t_params *pa);
+void	mandelbrot(t_params *pa);
 int		endprog(t_params *pa);
 int		type_of_fractal(t_params *pa, char *type);
 int		set_resolution(t_params *pa, char *res);
@@ -76,6 +74,7 @@ int		check_resolution(t_params *pa, char *res);
 int		set_julia_shape(t_params *pa, char *cr, char *ci);
 double	ft_atoi_f(const char *nptr);
 void	display_params(void);
+void	display_julia_values(t_params *pa);
 void	zoom(t_params *pa);
 void	dezoom(t_params *pa);
 void	left(t_params *pa);
@@ -90,7 +89,8 @@ int		deal_key(int key, t_params *pa);
 int		deal_mouse(int key, int x, int y, t_params *pa);
 void	draw(t_params *pa, int x, int y, int e);
 void	julia(t_params *pa);
-void	setup(t_params *pa);
+void	supermand(t_params *pa);
+int		setup(t_params *pa);
 void	color(t_params *pa, int i);
 void	boucle_1(t_params *pa);
 void	boucle_2(t_params *pa);

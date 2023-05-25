@@ -6,14 +6,14 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 13:24:36 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/23 14:35:51 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:54:21 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "fractol.h"
 
-void	next_ft_atoi_f(const char *nptr, int i, double nb, int d)
+double	next_ft_atoi_f(const char *nptr, int i, double nb, int d)
 {
 	if (nptr[i] == '.')
 		i++;
@@ -29,13 +29,14 @@ void	next_ft_atoi_f(const char *nptr, int i, double nb, int d)
 		nb /= 10;
 		d--;
 	}
+	return (nb);
 }
 
 double	ft_atoi_f(const char *nptr)
 {
-	int	i;
-	int	s;
-	int	d;
+	int		i;
+	int		s;
+	int		d;
 	double	nb;
 
 	nb = 0;
@@ -56,7 +57,7 @@ double	ft_atoi_f(const char *nptr)
 		nb += nptr[i] - 48;
 		i++;
 	}
-	next_ft_atoi_f(nptr, i, nb, d);
+	nb = next_ft_atoi_f(nptr, i, nb, d);
 	return (s * nb);
 }
 

@@ -6,7 +6,7 @@
 #    By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/19 17:26:57 by kle-rest          #+#    #+#              #
-#    Updated: 2023/05/23 15:16:53 by kle-rest         ###   ########.fr        #
+#    Updated: 2023/05/25 19:03:36 by kle-rest         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,28 +34,21 @@ SOURCES = main.c \
 		ft_atoi_f.c \
 		animation.c \
 		event.c \
-
-TESTSRC = test.c \
-		utiles.c \
-		zoom.c \
-		mandelbrot.c \
+		supermand.c \
+		display.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 
-OBJTEST = $(TESTSRC:.c=.o)
-
 OPENGL = -lXext -lX11 -lbsd -lm
 CC = cc
-CFLAGS = -Iminilibx-linux 
+CFLAGS = -Wall -Werror -Wextra -Iminilibx-linux 
 
 $(NAME): $(OBJECTS)
 		make -C libft
 		make -C ft_printf
+		make -C minilibx-linux
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJECTS) minilibx-linux/libmlx.a $(OPENGL) $(LIB) $(FT_PRINT)
 
-$(TEST): $(OBJTEST)
-		make -C libft
-		$(CC) $(CFLAGS) -o test $(OBJTEST) minilibx-linux/libmlx.a $(OPENGL) $(LIB)
 
 all: $(NAME) 
 
@@ -69,9 +62,7 @@ fclean: clean
 				make fclean -C libft
 				make fclean -C ft_printf
 
-test:  $(OBJTEST)
-		make -C libft
-	$(CC) $(CFLAGS) -o test $(OBJTEST) minilibx-linux/libmlx.a $(OPENGL) $(LIB)
-
 re: clean all
+
+.PHONY: all clean fclean re
 

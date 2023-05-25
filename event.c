@@ -6,7 +6,7 @@
 /*   By: kle-rest <kle-rest@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/23 14:43:06 by kle-rest          #+#    #+#             */
-/*   Updated: 2023/05/23 15:01:16 by kle-rest         ###   ########.fr       */
+/*   Updated: 2023/05/24 19:54:01 by kle-rest         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,17 @@ void	next_deal_key(int key, t_params *pa)
 		boucle_4(pa);
 	if (key == 65437)
 		boucle_5(pa);
-	if (key == 115)
+	if (key == 32)
 		setup(pa);
+	if (key == 115)
+	{
+		pa->data->c = 1;
+		setup(pa);
+	}
 }
 
 int	deal_key(int key, t_params *pa)
 {
-	// printf("key = %d\n", key);
 	if (key == 65307)
 		endprog(pa);
 	if (key == 122)

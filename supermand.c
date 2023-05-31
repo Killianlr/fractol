@@ -50,13 +50,11 @@ void	powcomp(double *add_r, double *add_i, int n)
 
 int	algo_supermand(t_params *pa, int x, int y, int i)
 {
-	double	tmp;
 	double	c_r;
 	double	c_i;
 	double	z_r;
 	double	z_i;
 
-	tmp = 0;
 	c_r = (x / pa->algo->zoom_x) + pa->algo->x1;
 	c_i = (y / pa->algo->zoom_y) + pa->algo->y1;
 	z_r = 0;

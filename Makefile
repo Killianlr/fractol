@@ -64,5 +64,8 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all clean fclean re
+mlx: 
+	git clone git@github.com:42Paris/minilibx-linux.git
+
+.PHONY: all clean fclean re mlx
 

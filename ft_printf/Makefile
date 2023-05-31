@@ -1,4 +1,4 @@
-NAME = libftprintf.a
+NAME = ft_printf.a
 
 SOURCES = ft_printf_c.c \
 	ft_printf_s.c \
@@ -20,6 +20,7 @@ CFLAGS = -Wall -Werror -Wextra
 
 $(NAME) : $(OBJECTS)
 	ar crs $(NAME) $(OBJECTS)
+
 
 all: $(NAME)
 
